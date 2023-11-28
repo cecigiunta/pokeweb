@@ -4,3 +4,9 @@ C:\Users\lenovo\Desktop\cursoC#2\primerAppPokemon\dominio\obj\Debug\dominio.cspr
 C:\Users\lenovo\Desktop\cursoC#2\primerAppPokemon\dominio\obj\Debug\dominio.csproj.CoreCompileInputs.cache
 C:\Users\lenovo\Desktop\cursoC#2\primerAppPokemon\dominio\obj\Debug\dominio.dll
 C:\Users\lenovo\Desktop\cursoC#2\primerAppPokemon\dominio\obj\Debug\dominio.pdb
+C:\Users\lenovo\Desktop\pokeweb-solucion\dominio\bin\Debug\dominio.dll
+C:\Users\lenovo\Desktop\pokeweb-solucion\dominio\bin\Debug\dominio.pdb
+C:\Users\lenovo\Desktop\pokeweb-solucion\dominio\obj\Debug\dominio.csproj.AssemblyReference.cache
+C:\Users\lenovo\Desktop\pokeweb-solucion\dominio\obj\Debug\dominio.csproj.CoreCompileInputs.cache
+C:\Users\lenovo\Desktop\pokeweb-solucion\dominio\obj\Debug\dominio.dll
+C:\Users\lenovo\Desktop\pokeweb-solucion\dominio\obj\Debug\dominio.pdb

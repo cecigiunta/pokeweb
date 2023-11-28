@@ -11,8 +11,5 @@
             <asp:BoundField HeaderText="Tipo" DataField="Tipo.Descripcion" /> 
             <asp:BoundField HeaderText="Debilidad" DataField="Debilidad.Descripcion" />        
         </Columns>
-
-
-
     </asp:GridView>
 </asp:Content>
