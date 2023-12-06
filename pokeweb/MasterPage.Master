@@ -28,6 +28,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="PokemonLista.aspx">Lista Pokemons</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="EjDropDown.aspx">DropDown</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="UpdatePanel.aspx">Update Panel</a>
+                        </li>
                     </ul>
                 </div>
             </div>
