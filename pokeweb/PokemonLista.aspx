@@ -8,7 +8,7 @@
         DataKeyNames="Id"
         OnSelectedIndexChanged="dgvPokemons_SelectedIndexChanged"
         OnPageIndexChanging="dgvPokemons_PageIndexChanging"
-        AllowPaging="true" PageSize="5">
+        AllowPaging="false" PageSize="5">
 
         <%--ULTIMOS AGREGADOS, PAGINADO Y SELECCION--%>
 

@@ -135,6 +135,9 @@ namespace negocios
         //METODO PARA INSERTAR
         public void agregar(Pokemon nuevo)
         {
+            //CAMBIO ESTO PARA HACERLO CON PROCEDIMIENTO ALMACENADO 
+
+
             //Creo un objeto de la clase de conexion a la BD
             AccesoDatos datos = new AccesoDatos();
             try
@@ -147,6 +150,37 @@ namespace negocios
                 datos.setearParametro("@idTipo", nuevo.Tipo.Id);
                 datos.setearParametro("@idDebilidad", nuevo.Debilidad.Id);
                 datos.setearParametro("@urlImagen", nuevo.UrlImagen);   //la imagen que se da de Alta
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        //METODO AGREGAR POKEMON USANDO STORED PROCEDURE
+        public void agregarConSP(Pokemon nuevo)
+        {
+            //Creo un objeto de la clase de conexion a la BD
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("storedAltaPokemon");
+
+                //vamos a setear los parámetros TAL CUAL los pusimos en la BBDD
+                datos.setearParametro("@numero", nuevo.Numero);
+                datos.setearParametro("@nombre", nuevo.Nombre);
+                datos.setearParametro("@descripcion", nuevo.Descripcion);
+                datos.setearParametro("@img", nuevo.UrlImagen);
+                datos.setearParametro("@idTipo", nuevo.Tipo.Id);
+                datos.setearParametro("@idDebilidad", nuevo.Debilidad.Id);
+                //datos.setearParametro("@idEvolucion", null);
+
 
                 datos.ejecutarAccion();
             }

@@ -4,6 +4,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    <%--El ScriptManager es requerido para usar el Update Panel--%>
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
     <div class="row">
         <div class="col-6">
             <div class="mb-3">
@@ -34,8 +37,24 @@
             </div>
 
             <div class="mb-3">
-                <asp:Button ID="btnAceptar" runat="server" CssClass="btn btn-primary" Text="Aceptar" />
+                <asp:Button ID="btn_Aceptar" runat="server" CssClass="btn btn-primary" Text="Aceptar" OnClick="btn_Aceptar_Click" />
                 <a href="PokemonLista.aspx">Cancelar</a>
+            </div>
+        </div>
+
+        <%--AGREGO HOY--%>
+        <div class="col-6">
+            <div class="mb-3">
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <ContentTemplate>
+                        <div class="mb-3">
+                            <asp:Label ID="txtImagenUrl" runat="server" Text="Imagen"></asp:Label>
+                            <asp:TextBox ID="txtUrlImagenUrl" runat="server" AutoPostBack="true" OnTextChanged="txtUrlImagenUrl_TextChanged" CssClass="form-control"></asp:TextBox>
+                        </div>
+
+                        <asp:Image ImageUrl="https://st3.depositphotos.com/6723736/12729/v/950/depositphotos_127297230-stock-illustration-download-sign-load-icon-load.jpg" ID="imgPokemon" runat="server" Width="60%" />
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
         </div>
     </div>
