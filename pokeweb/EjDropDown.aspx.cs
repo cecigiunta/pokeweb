@@ -28,7 +28,6 @@ namespace pokeweb
                     dropPokemonFiltrados.DataSource = listaPokemon;
                     dropPokemonFiltrados.DataBind();
                
-
                     List<Tipo> listaTipo = negocioTipo.listar();
 
                      dropTipos.DataSource = listaTipo;
@@ -58,9 +57,6 @@ namespace pokeweb
             dropPokemonFiltrados.DataSource = ((List<Pokemon>)Session["listaPokemon"]).FindAll(x => Tipo.Id == id);
             dropPokemonFiltrados.DataBind();
             */
-
-
-
         }
 
         protected void btnSeleccionar_Click(object sender, EventArgs e)

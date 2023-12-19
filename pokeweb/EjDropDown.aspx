@@ -40,7 +40,6 @@
         </div>
         <div class="col">
             <asp:TextBox ID="txtTipo" runat="server" CssClass="form-control"></asp:TextBox>
-
         </div>
         <div class="col">
              <asp:Label runat="server" Text="Tipo Preseleccionado" CssClass="form-label"></asp:Label>
@@ -48,13 +47,5 @@
             </asp:DropDownList>
             <asp:Button ID="btnSeleccionar" runat="server" Text="Aceptar" OnClick="btnSeleccionar_Click" />
         </div>
-
-
     </div>
-
-
-
-
-
-
 </asp:Content>

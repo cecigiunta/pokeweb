@@ -4,14 +4,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1>Lista de Pokemons</h1>
-    <asp:GridView ID="dgvPokemons" runat="server" CssClass="table" AutoGenerateColumns="false"
-        DataKeyNames="Id"
+    <asp:GridView ID="dgvPokemons" runat="server" DataKeyNames="Id"
+        CssClass="table" AutoGenerateColumns="false"
         OnSelectedIndexChanged="dgvPokemons_SelectedIndexChanged"
         OnPageIndexChanging="dgvPokemons_PageIndexChanging"
-        AllowPaging="false" PageSize="5">
-
-        <%--ULTIMOS AGREGADOS, PAGINADO Y SELECCION--%>
-
+        AllowPaging="true" PageSize="5">
 
         <%--Al no mostrar el tipo y debilidad por defecto, tenemos que manejar las columnas manualmente--%>
         <Columns>

@@ -12,7 +12,8 @@ namespace negocios
     public class PokemonNegocio
     {
         //Creo el primer metodo, le digo qué devuelve (una lista de Pokemon)
-        public List<Pokemon> listar()
+        //MODIFICAR POKEMON AGREGO OPCIONAL QUE RECIBA UN ID
+        public List<Pokemon> listar(string id = "")
         {
             //Creamos esa lista
             List<Pokemon> lista = new List<Pokemon>();
@@ -33,23 +34,25 @@ namespace negocios
                 //si tuviese un usuario seria : integrated security= false y le agrego el usr y contra
                 conexion.ConnectionString = "server=.\\SQLEXPRESS; database=POKEDEX_DB; integrated security=true";
 
-                //Lo siguiente que configuro es el comando
-                //Le decimos el tipo. Hay 3:
-                //1. Tipo procedimiento almacenado: le voy a pedir que ejecute una funcion guardada en la bd
+                //Lo siguiente que configuro es el comando. Le decimos el tipo. Hay 3: 1. Tipo procedimiento almacenado: le voy a pedir que ejecute una funcion guardada en la bd
                 //2. Tipo enlace directo con la tabla: no se usa
 
-                //3. Tipo texto : le inyectamos una sentencia sql -- usamos esa
-                // Es recomendable hacerla PRIMERO en el sql
+                //3. Tipo texto : le inyectamos una sentencia sql -- usamos esa. Es recomendable hacerla PRIMERO en el sql
                 comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "Select Numero, Nombre, P.Descripcion, UrlImagen, E.Descripcion as Tipo, D.Descripcion as Debilidad, P.IdTipo, P.IdDebilidad, P.Id From POKEMONS P, ELEMENTOS E, ELEMENTOS D Where E.Id = P.IdTipo And D.Id = P.IdDebilidad And P.Activo = 1";
+
+                //NUEVO !! MODIFICO ESTA CONSULTA AGREGANDOLE AL FINAL UN ESPACIO PARA CONCATENAR Y QUE SIRVA AL MODIFICAR
+                comando.CommandText = "Select Numero, Nombre, P.Descripcion, UrlImagen, E.Descripcion as Tipo, D.Descripcion as Debilidad, P.IdTipo, P.IdDebilidad, P.Id From POKEMONS P, ELEMENTOS E, ELEMENTOS D Where E.Id = P.IdTipo And D.Id = P.IdDebilidad And P.Activo = 1 ";
+                if (id != "")
+                {
+                    comando.CommandText += " and P.Id = " + id; //le concateno el AND con el ID que recibe, asi la consulta ya me trae un solo poke
+                }
+
+
                 //("update POKEMONS set Numero = @numero, Nombre = @nombre, Descripcion = @descripcion, UrlImagen = @img, IdTipo = @idTipo, IdDebilidad = @idDebilidad Where Id = @id");
-
-
-
 
                 comando.Connection = conexion;  //le digo al comando que esa sentencia la ejecute en la conexion que defini
 
-                conexion.Open();  //abro la conexion
+                conexion.Open();
                 lector = comando.ExecuteReader(); //ejecuto la lectura (da como resultado un sqldatareader)
                 //los datos ahora los tengo en mi variable "lector"
 
@@ -63,7 +66,7 @@ namespace negocios
                     aux.Nombre = (string)lector["Nombre"];   //Le pongo el nombre de la columna. Es mas practico
                     aux.Descripcion = (string)lector["Descripcion"];
 
-                    if (!(lector["UrlImagen"] is DBNull)) 
+                    if (!(lector["UrlImagen"] is DBNull))
                         aux.UrlImagen = (string)lector["UrlImagen"];
 
                     //CARGAR TIPO Y DEBILIDAD
@@ -78,16 +81,14 @@ namespace negocios
                     lista.Add(aux);        //En cada vuelta va a ir creando una nueva instancia y guardando en la lista
                 }
 
-                conexion.Close();          //Cierro la conexion
-
-                return lista;              //hacemos que la devuelva. Cuando no haya más, deja de leer y la devuelve
-
+                conexion.Close();
+                return lista;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-       }
+        }
 
         public List<Pokemon> listarConSP()
         {
@@ -100,7 +101,7 @@ namespace negocios
                 //string consulta ... datos.setear consulta...
                 datos.setearProcedimiento("storedListar");
                 datos.ejecutarLectura();
-                
+
                 while (datos.Lector.Read())
                 {
                     //Si da true, apunta al PRIMER registro
@@ -130,7 +131,7 @@ namespace negocios
             {
                 throw ex;
             }
-}
+        }
 
         //METODO PARA INSERTAR
         public void agregar(Pokemon nuevo)
@@ -221,6 +222,32 @@ namespace negocios
             finally { datos.cerrarConexion(); }
         }
 
+        //MODIFICAR USANDO STORED PROCEDURE
+        public void modificarConSP(Pokemon pokeMod)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                //como ya nace seteado, lo que yo tengo que hacer es setear la consulta con los parámetros
+                datos.setearProcedimiento("storedModificarPokemon"); 
+                datos.setearParametro("@numero", pokeMod.Numero);
+                datos.setearParametro("@nombre", pokeMod.Nombre);
+                datos.setearParametro("@descripcion", pokeMod.Descripcion);
+                datos.setearParametro("@img", pokeMod.UrlImagen);
+                datos.setearParametro("@idTipo", pokeMod.Tipo.Id);
+                datos.setearParametro("@idDebilidad", pokeMod.Debilidad.Id);
+                datos.setearParametro("@id", pokeMod.Id);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally { datos.cerrarConexion(); }
+        }
+
 
         //METODO ELIMINAR FISICA
         public void eliminar(int id)
@@ -245,7 +272,7 @@ namespace negocios
         {
             try
             {
-                AccesoDatos datos = new AccesoDatos();   
+                AccesoDatos datos = new AccesoDatos();
                 datos.setearConsulta("update POKEMONS set Activo = 0 Where Id = @id");
                 datos.setearParametro("@id", id);
 
@@ -263,14 +290,14 @@ namespace negocios
         {
             List<Pokemon> lista = new List<Pokemon>();
             AccesoDatos datos = new AccesoDatos();
-    
+
             try
             {
                 //la consulta me la traigo del metodo listar
                 string consulta = "Select Numero, Nombre, P.Descripcion, UrlImagen, E.Descripcion as Tipo, D.Descripcion as Debilidad, P.IdTipo, P.IdDebilidad, P.Id From POKEMONS P, ELEMENTOS E, ELEMENTOS D Where E.Id = P.IdTipo And D.Id = P.IdDebilidad And P.Activo = 1 And ";
                 //despues del ultimo caracter, le agrego el And y un espacio para concatenarle posibles filtros como like o el numerico
 
-                if(campo == "Número")
+                if (campo == "Número")
                 {
                     switch (criterio)
                     {
@@ -284,8 +311,8 @@ namespace negocios
                             consulta += "Numero = " + filtro;
                             break;
                     }
-                } 
-                else if(campo == "Nombre") 
+                }
+                else if (campo == "Nombre")
                 {
                     switch (criterio)
                     {
@@ -305,7 +332,7 @@ namespace negocios
                     switch (criterio)
                     {
                         case "Comienza con":  //like 'filtro%'
-                            consulta += "P.Descripcion like '" + filtro +"%'";
+                            consulta += "P.Descripcion like '" + filtro + "%'";
                             break;
                         case "Termina con":  // like '%filtro'
                             consulta += "P.Descripcion like '%" + filtro + "'";
@@ -324,8 +351,8 @@ namespace negocios
                 {
                     Pokemon aux = new Pokemon();
                     aux.Id = (int)datos.Lector["Id"];
-                    aux.Numero = datos.Lector.GetInt32(0);  
-                    aux.Nombre = (string)datos.Lector["Nombre"]; 
+                    aux.Numero = datos.Lector.GetInt32(0);
+                    aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
 
                     if (!(datos.Lector["UrlImagen"] is DBNull))
@@ -339,7 +366,7 @@ namespace negocios
                     aux.Debilidad.Id = (int)datos.Lector["IdDebilidad"];
                     aux.Debilidad.Descripcion = (string)datos.Lector["Debilidad"];
 
-                    lista.Add(aux);     
+                    lista.Add(aux);
                 }
 
                 return lista;

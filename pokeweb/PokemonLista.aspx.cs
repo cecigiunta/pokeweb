@@ -16,21 +16,21 @@ namespace pokeweb
             PokemonNegocio negocio = new PokemonNegocio();
             dgvPokemons.DataSource = negocio.listarConSP();
             dgvPokemons.DataBind();
-
-
-
-        }
-
-        protected void dgvPokemons_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //dgvPokemons.PageIndex = e.NewPageIndex;
-            dgvPokemons.DataBind();
         }
 
         protected void dgvPokemons_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
+            dgvPokemons.PageIndex = e.NewPageIndex;
+            dgvPokemons.DataBind();
+          
+        }
+
+
+        protected void dgvPokemons_SelectedIndexChanged(object sender, EventArgs e)
+        {
             string id = dgvPokemons.SelectedDataKey.Value.ToString();  //capturo el valor y voy a la otra pagina ya con el ID
             Response.Redirect("FormPokemon.aspx?id=" + id);
         }
+
     }
 }

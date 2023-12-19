@@ -33,7 +33,8 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col">
-                        <asp:TextBox ID="txtUrlImagenUP" runat="server" AutoPostBack="true" OnTextChanged="txtUrlImagenUP_TextChanged" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="txtUrlImagenUP" runat="server" AutoPostBack="true" 
+                            OnTextChanged="txtUrlImagenUP_TextChanged" CssClass="form-control"></asp:TextBox>
                         
                     </div>
                     <div class="col">
