@@ -11,9 +11,11 @@ namespace pokeweb
 {
     public partial class FormPokemon : System.Web.UI.Page
     {
+        public bool confirmaEliminacion { get; set; } //ELIMINAR POKE
         protected void Page_Load(object sender, EventArgs e)
         {
             txtId.Enabled = false; //ocultar la caja de texto del ID para que no se pueda escribir
+            confirmaEliminacion = false;  //ELIMINAR POKE
 
             try
             {
@@ -56,7 +58,7 @@ namespace pokeweb
                     ddDebilidad.SelectedValue = seleccionado.Debilidad.Id.ToString();
 
                     // forzamos el evento para que la imagen aparezca cargada...
-                    txtUrlImagenUrl_TextChanged(sender, e);  
+                    txtUrlImagenUrl_TextChanged(sender, e);
 
                 }
 
@@ -97,12 +99,13 @@ namespace pokeweb
 
                 //NUEVO MODIFICAR: PREGUNTO SI AGREGO O SI MODIFICO
 
-                if (Request.QueryString["id"]!= null) //si el ID vino distinto de nulo, significa q quiero modificar
+                if (Request.QueryString["id"] != null) //si el ID vino distinto de nulo, significa q quiero modificar
                 {
                     // le paso el ID
                     nuevo.Id = int.Parse(txtId.Text);
                     negocio.modificarConSP(nuevo);
-                } else
+                }
+                else
                 {
                     negocio.agregarConSP(nuevo);
 
@@ -117,6 +120,29 @@ namespace pokeweb
                 Session.Add("error", ex);
                 throw;
                 //redireccion pantalla
+            }
+        }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            confirmaEliminacion = true;
+        }
+
+        protected void btnConfirmaEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (chkConfirmaEliminacion.Checked)
+                {
+                    PokemonNegocio negocio = new PokemonNegocio();
+                    negocio.eliminar(int.Parse(txtId.Text));
+                    Response.Redirect("PokemonLista.aspx");
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                throw;
             }
         }
     }

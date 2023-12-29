@@ -42,7 +42,6 @@
             </div>
         </div>
 
-        <%--AGREGO HOY--%>
         <div class="col-6">
             <div class="mb-3">
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -57,5 +56,32 @@
                 </asp:UpdatePanel>
             </div>
         </div>
+
     </div>
+
+
+    <%--ELIMINAR POKEMON--%>
+    <div class="row">
+        <div class="col-6">
+            <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                <ContentTemplate>
+
+                    <div class="mb-3">
+                        <asp:Button ID="btnEliminar" runat="server" CssClass="btn btn-danger" Text="Eliminar" OnClick="btnEliminar_Click" />
+                    </div>
+
+                    <% if (confirmaEliminacion){  %>
+                    <div class="mb-3">
+                        <asp:CheckBox ID="chkConfirmaEliminacion" Text="Confirmar eliminación" runat="server" />
+                        <asp:Button ID="btnConfirmaEliminar" runat="server" CssClass="btn btn-outline-danger" Text="Confirmar" OnClick="btnConfirmaEliminar_Click" />
+                    </div>
+
+                    <% }   %>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+    </div>
+
+
+
 </asp:Content>
