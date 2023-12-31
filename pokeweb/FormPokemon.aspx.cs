@@ -46,6 +46,10 @@ namespace pokeweb
                     List<Pokemon> lista = negocio.listar(Request.QueryString["id"].ToString());
                     Pokemon seleccionado = lista[0];  //como el metodo devuelve 1 solo si le paso el id, seria en la posicion 0
 
+                    //REACTIVAR HOY: LO GUARDO EN LA SESSION PARA PODER UTILIZARLO
+                    Session.Add("pokeSeleccionado", seleccionado);
+
+
                     //Pre cargamos los campos
                     txtId.Text = Request.QueryString["id"];
                     txtNombre.Text = seleccionado.Nombre;
@@ -59,6 +63,13 @@ namespace pokeweb
 
                     // forzamos el evento para que la imagen aparezca cargada...
                     txtUrlImagenUrl_TextChanged(sender, e);
+
+                    // boton desactivar/reactivar
+                    if (!seleccionado.Activo)
+                    {
+                        btnDesactivar.Text = "Reactivar";
+
+                    }
 
                 }
 
@@ -138,6 +149,25 @@ namespace pokeweb
                     negocio.eliminar(int.Parse(txtId.Text));
                     Response.Redirect("PokemonLista.aspx");
                 }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                throw;
+            }
+        }
+
+
+        //cambio el metodo Desactivar para que reactive tambien
+        protected void btnDesactivar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                PokemonNegocio negocio = new PokemonNegocio();
+                Pokemon seleccionado = (Pokemon)Session["pokeSeleccionado"];
+
+                negocio.eliminarLogico(seleccionado.Id, !seleccionado.Activo);
+                Response.Redirect("PokemonLista.aspx");
             }
             catch (Exception ex)
             {

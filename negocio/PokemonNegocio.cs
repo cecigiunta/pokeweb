@@ -40,8 +40,8 @@ namespace negocios
                 //3. Tipo texto : le inyectamos una sentencia sql -- usamos esa. Es recomendable hacerla PRIMERO en el sql
                 comando.CommandType = System.Data.CommandType.Text;
 
-                //NUEVO !! MODIFICO ESTA CONSULTA AGREGANDOLE AL FINAL UN ESPACIO PARA CONCATENAR Y QUE SIRVA AL MODIFICAR
-                comando.CommandText = "Select Numero, Nombre, P.Descripcion, UrlImagen, E.Descripcion as Tipo, D.Descripcion as Debilidad, P.IdTipo, P.IdDebilidad, P.Id From POKEMONS P, ELEMENTOS E, ELEMENTOS D Where E.Id = P.IdTipo And D.Id = P.IdDebilidad And P.Activo = 1 ";
+                //NUEVO !! MODIFICO ESTA CONSULTA SACANDOLE EL AND ACTIVO ASI NO FILTRA Y PUEDO REACTIVAR
+                comando.CommandText = "Select Numero, Nombre, P.Descripcion, UrlImagen, E.Descripcion as Tipo, D.Descripcion as Debilidad, P.IdTipo, P.IdDebilidad, P.Id, P.Activo From POKEMONS P, ELEMENTOS E, ELEMENTOS D Where E.Id = P.IdTipo And D.Id = P.IdDebilidad ";
                 if (id != "")
                 {
                     comando.CommandText += " and P.Id = " + id; //le concateno el AND con el ID que recibe, asi la consulta ya me trae un solo poke
@@ -77,6 +77,10 @@ namespace negocios
                     aux.Debilidad = new Elemento();
                     aux.Debilidad.Id = (int)lector["IdDebilidad"];
                     aux.Debilidad.Descripcion = (string)lector["Debilidad"];
+
+                    //REACTIVAR:
+                    aux.Activo = bool.Parse(lector["Activo"].ToString());
+
 
                     lista.Add(aux);        //En cada vuelta va a ir creando una nueva instancia y guardando en la lista
                 }
@@ -122,6 +126,9 @@ namespace negocios
                     aux.Debilidad = new Elemento();
                     aux.Debilidad.Id = (int)datos.Lector["IdDebilidad"];
                     aux.Debilidad.Descripcion = (string)datos.Lector["Debilidad"];
+
+                    //AGREGO ACTIVO PARA HACER LA INACTIVACION/REACTIVACION
+                    aux.Activo = bool.Parse(datos.Lector["Activo"].ToString());
 
                     lista.Add(aux);        //En cada vuelta va a ir creando una nueva instancia y guardando en la lista
                 }
@@ -268,13 +275,17 @@ namespace negocios
 
 
         //Metodo ELIMINACION LOGICA: Le cambio el estado de la columna Activo a 0 asi se "deshabilita" pero sigue existiendo en bd
-        public void eliminarLogico(int id)
+        //Para reactivar: cambiamos el metodo para que haga las 2 cosas
+        public void eliminarLogico(int id, bool activo = false)
         {
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta("update POKEMONS set Activo = 0 Where Id = @id");
+
+                //cambio el 0 por @activo
+                datos.setearConsulta("update POKEMONS set Activo = @activo Where Id = @id");
                 datos.setearParametro("@id", id);
+                datos.setearParametro("@activo", activo);  //le seteo el nuevo parametro
 
                 datos.ejecutarAccion();
             }

@@ -9,8 +9,6 @@ namespace dominio
 {
     public class Pokemon
     {
-
-        //MODIFICAR : NUEVO - Agregamos la property id
         public int Id { get; set; }
 
 
@@ -27,5 +25,7 @@ namespace dominio
         public Elemento Tipo { get; set; }
 
         public Elemento Debilidad { get; set; }
+
+        public bool Activo { get; set;  }  //NUEVO !!!
     }
 }
