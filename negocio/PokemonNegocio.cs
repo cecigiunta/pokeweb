@@ -40,7 +40,7 @@ namespace negocios
                 //3. Tipo texto : le inyectamos una sentencia sql -- usamos esa. Es recomendable hacerla PRIMERO en el sql
                 comando.CommandType = System.Data.CommandType.Text;
 
-                //NUEVO !! MODIFICO ESTA CONSULTA SACANDOLE EL AND ACTIVO ASI NO FILTRA Y PUEDO REACTIVAR
+                //MODIFICO ESTA CONSULTA SACANDOLE EL AND ACTIVO ASI NO FILTRA Y PUEDO REACTIVAR
                 comando.CommandText = "Select Numero, Nombre, P.Descripcion, UrlImagen, E.Descripcion as Tipo, D.Descripcion as Debilidad, P.IdTipo, P.IdDebilidad, P.Id, P.Activo From POKEMONS P, ELEMENTOS E, ELEMENTOS D Where E.Id = P.IdTipo And D.Id = P.IdDebilidad ";
                 if (id != "")
                 {

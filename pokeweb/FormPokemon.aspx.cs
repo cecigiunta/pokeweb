@@ -11,11 +11,11 @@ namespace pokeweb
 {
     public partial class FormPokemon : System.Web.UI.Page
     {
-        public bool confirmaEliminacion { get; set; } //ELIMINAR POKE
+        public bool confirmaEliminacion { get; set; } 
         protected void Page_Load(object sender, EventArgs e)
         {
-            txtId.Enabled = false; //ocultar la caja de texto del ID para que no se pueda escribir
-            confirmaEliminacion = false;  //ELIMINAR POKE
+            txtId.Enabled = false;
+            confirmaEliminacion = false; 
 
             try
             {
@@ -70,10 +70,7 @@ namespace pokeweb
                         btnDesactivar.Text = "Reactivar";
 
                     }
-
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -81,7 +78,6 @@ namespace pokeweb
                 throw;
                 //redireccion pantalla
             }
-
         }
 
         protected void txtUrlImagenUrl_TextChanged(object sender, EventArgs e)

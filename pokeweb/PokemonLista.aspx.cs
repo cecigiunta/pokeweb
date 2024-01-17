@@ -14,7 +14,12 @@ namespace pokeweb
         protected void Page_Load(object sender, EventArgs e)
         {
             PokemonNegocio negocio = new PokemonNegocio();
-            dgvPokemons.DataSource = negocio.listarConSP();
+
+            //FILTRO RAPIDO: obtener el listado y guardarlo en session
+            Session.Add("listaPokemons", negocio.listarConSP());
+
+
+            dgvPokemons.DataSource = Session["listaPokemons"]; //ahora hacemos referencia a la lista guardada en session
             dgvPokemons.DataBind();
         }
 
@@ -32,5 +37,21 @@ namespace pokeweb
             Response.Redirect("FormPokemon.aspx?id=" + id);
         }
 
+
+        //FILTRO RAPIDO : No filtra en BBDD
+        protected void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            List<Pokemon> lista = (List<Pokemon>)Session["listaPokemons"];
+
+            //de la lista voy a crear otra filtrada por NOMBRE  
+            List<Pokemon> listaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
+
+            dgvPokemons.DataSource = listaFiltrada;
+            dgvPokemons.DataBind();
+
+            //se podria mejorar haciendo un update panel para que se actualice solo esta parte
+            // mejorar estilo de textbox
+            // agregarle por tipo, numero
+        }
     }
 }
