@@ -236,7 +236,7 @@ namespace negocios
             try
             {
                 //como ya nace seteado, lo que yo tengo que hacer es setear la consulta con los parámetros
-                datos.setearProcedimiento("storedModificarPokemon"); 
+                datos.setearProcedimiento("storedModificarPokemon");
                 datos.setearParametro("@numero", pokeMod.Numero);
                 datos.setearParametro("@nombre", pokeMod.Nombre);
                 datos.setearParametro("@descripcion", pokeMod.Descripcion);
@@ -297,15 +297,16 @@ namespace negocios
 
 
         //METODO FILTRAR AVANZADO - CONTRA LA BD
-        public List<Pokemon> filtrarContraBD(string campo, string criterio, string filtro)
+        //NUEVO, LE AGREGO PARA Q RECIBE STRING ESTADO DE ACTIVO
+        public List<Pokemon> filtrarContraBD(string campo, string criterio, string filtro, string estado)
         {
             List<Pokemon> lista = new List<Pokemon>();
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                //la consulta me la traigo del metodo listar
-                string consulta = "Select Numero, Nombre, P.Descripcion, UrlImagen, E.Descripcion as Tipo, D.Descripcion as Debilidad, P.IdTipo, P.IdDebilidad, P.Id From POKEMONS P, ELEMENTOS E, ELEMENTOS D Where E.Id = P.IdTipo And D.Id = P.IdDebilidad And P.Activo = 1 And ";
+                //NUEVO: A LA CONSULTAR LE AGREGO Q TRAIGA EL ACTIVO Y QUE EN EL AND YA NO SEA OBLIGATORIO
+                string consulta = "Select Numero, Nombre, P.Descripcion, UrlImagen, E.Descripcion as Tipo, D.Descripcion as Debilidad, P.IdTipo, P.IdDebilidad, P.Id, P.Activo From POKEMONS P, ELEMENTOS E, ELEMENTOS D Where E.Id = P.IdTipo And D.Id = P.IdDebilidad And ";
                 //despues del ultimo caracter, le agrego el And y un espacio para concatenarle posibles filtros como like o el numerico
 
                 if (campo == "Número")
@@ -338,55 +339,66 @@ namespace negocios
                             break;
                     }
                 }
-                else  //Es Descripción
+                else  //NUEVO AHORA ES TIPO :  en vez de P.Descripcion ahora es E.Descripcion
                 {
                     switch (criterio)
                     {
                         case "Comienza con":  //like 'filtro%'
-                            consulta += "P.Descripcion like '" + filtro + "%'";
+                            consulta += "E.Descripcion like '" + filtro + "%'";
                             break;
                         case "Termina con":  // like '%filtro'
-                            consulta += "P.Descripcion like '%" + filtro + "'";
+                            consulta += "E.Descripcion like '%" + filtro + "'";
                             break;
                         default:  //contiene  P.Descripcion like '%filtro%' -> va entre %%
-                            consulta += "P.Descripcion like '%" + filtro + "%'";
+                            consulta += "E.Descripcion like '%" + filtro + "%'";
                             break;
                     }
                 }
+                if (estado == "Activo")
+                {
+                    consulta += " and P.Activo = 1";
+                }
+                else if (estado == "Inactivo")
+                {
+                    consulta += " and P.Activo = 0";
+                }
+            
 
                 datos.setearConsulta(consulta);
-                datos.ejecutarLectura();
+            datos.ejecutarLectura();
 
-                //me traigo todo el codigo desde el while lector read de arriba y a cada lector lo cambio por datos.Lector
-                while (datos.Lector.Read())
-                {
-                    Pokemon aux = new Pokemon();
-                    aux.Id = (int)datos.Lector["Id"];
-                    aux.Numero = datos.Lector.GetInt32(0);
-                    aux.Nombre = (string)datos.Lector["Nombre"];
-                    aux.Descripcion = (string)datos.Lector["Descripcion"];
+            //me traigo todo el codigo desde el while lector read de arriba y a cada lector lo cambio por datos.Lector
+            while (datos.Lector.Read()) // ACA TAMBIEN LE AGREGO EL AUX PARA ACTIVO
+            {
+                Pokemon aux = new Pokemon();
+                aux.Id = (int)datos.Lector["Id"];
+                aux.Numero = datos.Lector.GetInt32(0);
+                aux.Nombre = (string)datos.Lector["Nombre"];
+                aux.Descripcion = (string)datos.Lector["Descripcion"];
 
-                    if (!(datos.Lector["UrlImagen"] is DBNull))
-                        aux.UrlImagen = (string)datos.Lector["UrlImagen"];
+                if (!(datos.Lector["UrlImagen"] is DBNull))
+                    aux.UrlImagen = (string)datos.Lector["UrlImagen"];
 
-                    aux.Tipo = new Elemento();
-                    aux.Tipo.Id = (int)datos.Lector["IdTipo"];
-                    aux.Tipo.Descripcion = (string)datos.Lector["Tipo"];
+                aux.Tipo = new Elemento();
+                aux.Tipo.Id = (int)datos.Lector["IdTipo"];
+                aux.Tipo.Descripcion = (string)datos.Lector["Tipo"];
 
-                    aux.Debilidad = new Elemento();
-                    aux.Debilidad.Id = (int)datos.Lector["IdDebilidad"];
-                    aux.Debilidad.Descripcion = (string)datos.Lector["Debilidad"];
+                aux.Debilidad = new Elemento();
+                aux.Debilidad.Id = (int)datos.Lector["IdDebilidad"];
+                aux.Debilidad.Descripcion = (string)datos.Lector["Debilidad"];
 
-                    lista.Add(aux);
-                }
+                aux.Activo = bool.Parse(datos.Lector["Activo"].ToString()); //NUEVO
 
-                return lista;
-
+                lista.Add(aux);
             }
+
+            return lista;
+
+        }
             catch (Exception ex)
             {
                 throw ex;
             }
-        }
+}
     }
 }
