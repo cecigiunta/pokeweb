@@ -20,9 +20,6 @@ namespace pokeweb
             if (!IsPostBack)
             {
                 FiltroAvanzado = false; //arranca en false
-
-
-
                 PokemonNegocio negocio = new PokemonNegocio();
 
                 //FILTRO RAPIDO: obtener el listado y guardarlo en session
@@ -69,8 +66,6 @@ namespace pokeweb
         {
             FiltroAvanzado = chkAvanzado.Checked;
             txtFiltro.Enabled = !FiltroAvanzado;  //le agrego el estaod contrario al filtro rapido
-
-            //05 02
         }
 
         protected void ddlCampo_SelectedIndexChanged(object sender, EventArgs e)

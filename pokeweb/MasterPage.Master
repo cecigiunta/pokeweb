@@ -34,6 +34,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="UpdatePanel.aspx">Update Panel</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="LoginEjemplo.aspx">Login</a>
+                        </li>
                     </ul>
                 </div>
             </div>

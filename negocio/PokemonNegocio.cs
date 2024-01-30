@@ -362,43 +362,43 @@ namespace negocios
                 {
                     consulta += " and P.Activo = 0";
                 }
-            
+
 
                 datos.setearConsulta(consulta);
-            datos.ejecutarLectura();
+                datos.ejecutarLectura();
 
-            //me traigo todo el codigo desde el while lector read de arriba y a cada lector lo cambio por datos.Lector
-            while (datos.Lector.Read()) // ACA TAMBIEN LE AGREGO EL AUX PARA ACTIVO
-            {
-                Pokemon aux = new Pokemon();
-                aux.Id = (int)datos.Lector["Id"];
-                aux.Numero = datos.Lector.GetInt32(0);
-                aux.Nombre = (string)datos.Lector["Nombre"];
-                aux.Descripcion = (string)datos.Lector["Descripcion"];
+                //me traigo todo el codigo desde el while lector read de arriba y a cada lector lo cambio por datos.Lector
+                while (datos.Lector.Read()) // ACA TAMBIEN LE AGREGO EL AUX PARA ACTIVO
+                {
+                    Pokemon aux = new Pokemon();
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Numero = datos.Lector.GetInt32(0);
+                    aux.Nombre = (string)datos.Lector["Nombre"];
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
 
-                if (!(datos.Lector["UrlImagen"] is DBNull))
-                    aux.UrlImagen = (string)datos.Lector["UrlImagen"];
+                    if (!(datos.Lector["UrlImagen"] is DBNull))
+                        aux.UrlImagen = (string)datos.Lector["UrlImagen"];
 
-                aux.Tipo = new Elemento();
-                aux.Tipo.Id = (int)datos.Lector["IdTipo"];
-                aux.Tipo.Descripcion = (string)datos.Lector["Tipo"];
+                    aux.Tipo = new Elemento();
+                    aux.Tipo.Id = (int)datos.Lector["IdTipo"];
+                    aux.Tipo.Descripcion = (string)datos.Lector["Tipo"];
 
-                aux.Debilidad = new Elemento();
-                aux.Debilidad.Id = (int)datos.Lector["IdDebilidad"];
-                aux.Debilidad.Descripcion = (string)datos.Lector["Debilidad"];
+                    aux.Debilidad = new Elemento();
+                    aux.Debilidad.Id = (int)datos.Lector["IdDebilidad"];
+                    aux.Debilidad.Descripcion = (string)datos.Lector["Debilidad"];
 
-                aux.Activo = bool.Parse(datos.Lector["Activo"].ToString()); //NUEVO
+                    aux.Activo = bool.Parse(datos.Lector["Activo"].ToString()); //NUEVO
 
-                lista.Add(aux);
+                    lista.Add(aux);
+                }
+
+                return lista;
+
             }
-
-            return lista;
-
-        }
             catch (Exception ex)
             {
                 throw ex;
             }
-}
+        }
     }
 }
