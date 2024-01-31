@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using negocios;
 
+
 namespace pokeweb
 {
     public partial class LoginEjemplo : System.Web.UI.Page

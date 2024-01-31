@@ -76,6 +76,7 @@
     <Content Include="FormPokemon.aspx" />
     <Content Include="LoginEjemplo.aspx" />
     <Content Include="MenuLoginEjemplo.aspx" />
+    <Content Include="Pagina2LoginAdmin.aspx" />
     <Content Include="PokemonLista.aspx" />
     <Content Include="UpdatePanel.aspx" />
     <Content Include="Web.config" />
@@ -136,6 +137,13 @@
     </Compile>
     <Compile Include="MenuLoginEjemplo.aspx.designer.cs">
       <DependentUpon>MenuLoginEjemplo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pagina2LoginAdmin.aspx.cs">
+      <DependentUpon>Pagina2LoginAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pagina2LoginAdmin.aspx.designer.cs">
+      <DependentUpon>Pagina2LoginAdmin.aspx</DependentUpon>
     </Compile>
     <Compile Include="PokemonLista.aspx.cs">
       <DependentUpon>PokemonLista.aspx</DependentUpon>

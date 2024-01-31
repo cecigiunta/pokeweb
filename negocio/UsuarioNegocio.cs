@@ -34,11 +34,13 @@ namespace negocios
 			{
 
 				throw ex;
+				
 			}
 			finally
 			{
 				datos.cerrarConexion();
 			}
+			return false;	
         }
 
     }
