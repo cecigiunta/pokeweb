@@ -72,6 +72,7 @@
     </Content>
     <Content Include="DetallePokemon.aspx" />
     <Content Include="EjDropDown.aspx" />
+    <Content Include="EjemplosEmail\EnvioEmail.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="FormPokemon.aspx" />
     <Content Include="LoginEjemplo.aspx" />
@@ -102,6 +103,13 @@
     </Compile>
     <Compile Include="EjDropDown.aspx.designer.cs">
       <DependentUpon>EjDropDown.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EjemplosEmail\EnvioEmail.aspx.cs">
+      <DependentUpon>EnvioEmail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EjemplosEmail\EnvioEmail.aspx.designer.cs">
+      <DependentUpon>EnvioEmail.aspx</DependentUpon>
     </Compile>
     <Compile Include="Error.aspx.cs">
       <DependentUpon>Error.aspx</DependentUpon>
