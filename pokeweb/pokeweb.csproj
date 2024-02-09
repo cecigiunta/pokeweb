@@ -71,15 +71,18 @@
       <BrowseToURL>~/</BrowseToURL>
     </Content>
     <Content Include="DetallePokemon.aspx" />
-    <Content Include="EjDropDown.aspx" />
+    <Content Include="DropDown-UpdatePanel\EjDropDown.aspx" />
     <Content Include="EjemplosEmail\EnvioEmail.aspx" />
     <Content Include="Error.aspx" />
+    <Content Include="Favoritos.aspx" />
     <Content Include="FormPokemon.aspx" />
-    <Content Include="LoginEjemplo.aspx" />
-    <Content Include="MenuLoginEjemplo.aspx" />
-    <Content Include="Pagina2LoginAdmin.aspx" />
+    <Content Include="LoginYAdmin\LoginEjemplo.aspx" />
+    <Content Include="LoginYAdmin\MenuLoginEjemplo.aspx" />
+    <Content Include="LoginYAdmin\Pagina2LoginAdmin.aspx" />
+    <Content Include="MiPerfil.aspx" />
     <Content Include="PokemonLista.aspx" />
-    <Content Include="UpdatePanel.aspx" />
+    <Content Include="DropDown-UpdatePanel\UpdatePanel.aspx" />
+    <Content Include="Registro.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -97,11 +100,11 @@
     <Compile Include="DetallePokemon.aspx.designer.cs">
       <DependentUpon>DetallePokemon.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EjDropDown.aspx.cs">
+    <Compile Include="DropDown-UpdatePanel\EjDropDown.aspx.cs">
       <DependentUpon>EjDropDown.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EjDropDown.aspx.designer.cs">
+    <Compile Include="DropDown-UpdatePanel\EjDropDown.aspx.designer.cs">
       <DependentUpon>EjDropDown.aspx</DependentUpon>
     </Compile>
     <Compile Include="EjemplosEmail\EnvioEmail.aspx.cs">
@@ -118,6 +121,13 @@
     <Compile Include="Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Favoritos.aspx.cs">
+      <DependentUpon>Favoritos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Favoritos.aspx.designer.cs">
+      <DependentUpon>Favoritos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FormPokemon.aspx.cs">
       <DependentUpon>FormPokemon.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -125,11 +135,11 @@
     <Compile Include="FormPokemon.aspx.designer.cs">
       <DependentUpon>FormPokemon.aspx</DependentUpon>
     </Compile>
-    <Compile Include="LoginEjemplo.aspx.cs">
+    <Compile Include="LoginYAdmin\LoginEjemplo.aspx.cs">
       <DependentUpon>LoginEjemplo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="LoginEjemplo.aspx.designer.cs">
+    <Compile Include="LoginYAdmin\LoginEjemplo.aspx.designer.cs">
       <DependentUpon>LoginEjemplo.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPage.Master.cs">
@@ -139,19 +149,26 @@
     <Compile Include="MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
     </Compile>
-    <Compile Include="MenuLoginEjemplo.aspx.cs">
+    <Compile Include="LoginYAdmin\MenuLoginEjemplo.aspx.cs">
       <DependentUpon>MenuLoginEjemplo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MenuLoginEjemplo.aspx.designer.cs">
+    <Compile Include="LoginYAdmin\MenuLoginEjemplo.aspx.designer.cs">
       <DependentUpon>MenuLoginEjemplo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pagina2LoginAdmin.aspx.cs">
+    <Compile Include="LoginYAdmin\Pagina2LoginAdmin.aspx.cs">
       <DependentUpon>Pagina2LoginAdmin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pagina2LoginAdmin.aspx.designer.cs">
+    <Compile Include="LoginYAdmin\Pagina2LoginAdmin.aspx.designer.cs">
       <DependentUpon>Pagina2LoginAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MiPerfil.aspx.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MiPerfil.aspx.designer.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="PokemonLista.aspx.cs">
       <DependentUpon>PokemonLista.aspx</DependentUpon>
@@ -161,12 +178,19 @@
       <DependentUpon>PokemonLista.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UpdatePanel.aspx.cs">
+    <Compile Include="DropDown-UpdatePanel\UpdatePanel.aspx.cs">
       <DependentUpon>UpdatePanel.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UpdatePanel.aspx.designer.cs">
+    <Compile Include="DropDown-UpdatePanel\UpdatePanel.aspx.designer.cs">
       <DependentUpon>UpdatePanel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Registro.aspx.cs">
+      <DependentUpon>Registro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Registro.aspx.designer.cs">
+      <DependentUpon>Registro.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

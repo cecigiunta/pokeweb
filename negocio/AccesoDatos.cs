@@ -77,13 +77,28 @@ namespace negocios
             }
         }
 
+        //SCALAR : obtiene como resultado el ID del registro que acabamos de ingresar
+        public int ejecutarAccionScalar()
+        {
+            comando.Connection = conexion;
+            try
+            {
+                conexion.Open();
+                return int.Parse(comando.ExecuteScalar().ToString());
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         //METODO PARA VALIDAR LOS PARAMETROS DE ID TIPO Y ID DEBILIDAD. Le aviso al comando q los agregue
         public void setearParametro(string nombre, object valor)
         {
             //El metodo AddWithValue permite agregar un parámetro con nombre y valor: recibe un string y un object
             comando.Parameters.AddWithValue(nombre, valor);
         }
-
 
         public void cerrarConexion()
         {
