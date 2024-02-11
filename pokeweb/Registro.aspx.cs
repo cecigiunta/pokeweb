@@ -22,9 +22,16 @@ namespace pokeweb
             {
                 Entrenador user = new Entrenador();
                 EntrenadorNegocio negocio = new EntrenadorNegocio();
+                EmailService emailService = new EmailService();
+
                 user.Email = txtEmailRegistro.Text;
                 user.Pass = txtPasswordRegistro.Text;
                 int id = negocio.insertarNuevo(user);
+
+                //MANDARLE MAIL AL USER DE BIENVENIDA 
+                emailService.armarCorreo(user.Email, "BIENVENIDA!", "Hola!!, bienvenida!!");
+                emailService.enviarEmail();
+                //Response.Redirect...
             }
             catch (Exception ex)
             {

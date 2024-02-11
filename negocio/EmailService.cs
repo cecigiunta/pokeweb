@@ -15,26 +15,26 @@ namespace negocios
         private SmtpClient server; //servidor mediante el cual envio, hay que configrarle el correo de salida.
         //vamos a usar el servidor de GMAIL
 
-        public EmailService() //constructor
+        public EmailService() //CAMBIAMOS ESTO PORQUE CAMBIÓ EL SERVICIO mailtrap
         {
             server = new SmtpClient(); //declaro la instancia del servidor y lo configuro abajo:
-            server.Credentials = new NetworkCredential("programationiii@gmail.com", "programacion3"); 
+            server.Credentials = new NetworkCredential("4a30956d109baf", "74d160db45b30f");
             //los parametros son usuario y contraseña
             server.EnableSsl = true; //seguridad
-            server.Port = 587;
-            server.Host = "smtp.gmail.com"; 
+            server.Port = 2525;
+            server.Host = "sandbox.smtp.mailtrap.io"; 
         }
 
         public void armarCorreo(string emailDestino, string asunto, string cuerpo)
         {
             email = new MailMessage(); //para la variable privada creo la instancia
-            email.From = new MailAddress("noresponderme@gmail.com");
+            email.From = new MailAddress("pokedexweb@pokedex.com");
             email.To.Add(emailDestino);
             email.Subject = asunto;
             email.IsBodyHtml = true;
-            email.Body = "<h1>Hola! email de prueba !! </h1>"; 
+            //email.Body = "<h1>Hola! email de prueba !! </h1>"; 
             //esto en algun momento es para que pueda usar plantillas html y cambiar por variables
-            //email.Body = cuerpo;
+            email.Body = cuerpo;
         }
 
         public void enviarEmail()
