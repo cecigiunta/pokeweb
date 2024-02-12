@@ -35,6 +35,42 @@ namespace negocios
             }
         }
 
+        public bool Login(Entrenador entrenador)
+        {
+            //vamos a tener q hacer una conexion a BD para ver si las credenciales q vienen en ese objeto
+            // existen realmente
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("Select id, email, pass, admin FROM USERS where email = @email And pass = @pass");
+                datos.setearParametro("@email", entrenador.Email);
+                datos.setearParametro("@pass", entrenador.Pass);
+
+                datos.ejecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    //necesito que lea 1 vez o da false
+                    //si me trajo el id hay user
+                    entrenador.Id = (int)datos.Lector["id"];
+                    entrenador.Admin = (bool)datos.Lector["admin"];
+
+                    return true;
+
+                }
+                return false; //no hay usuario logueado
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
 
 
 

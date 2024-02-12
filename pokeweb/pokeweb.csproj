@@ -76,6 +76,7 @@
     <Content Include="Error.aspx" />
     <Content Include="Favoritos.aspx" />
     <Content Include="FormPokemon.aspx" />
+    <Content Include="Login.aspx" />
     <Content Include="LoginYAdmin\LoginEjemplo.aspx" />
     <Content Include="LoginYAdmin\MenuLoginEjemplo.aspx" />
     <Content Include="LoginYAdmin\Pagina2LoginAdmin.aspx" />
@@ -134,6 +135,13 @@
     </Compile>
     <Compile Include="FormPokemon.aspx.designer.cs">
       <DependentUpon>FormPokemon.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="LoginYAdmin\LoginEjemplo.aspx.cs">
       <DependentUpon>LoginEjemplo.aspx</DependentUpon>

@@ -14,6 +14,15 @@ namespace pokeweb
         public bool FiltroAvanzado { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Validacion para que SOLO pueda acceder el ADMIN
+            if (!Seguridad.esAdmin(Session["entrenador"]))
+            {
+                Session.Add("error", "Se requiere permisos de Admin para Acceder");
+                Response.Redirect("Error.aspx", false);
+            }
+
+
+
             FiltroAvanzado = chkAvanzado.Checked; // para que en la recarga no pierda el valor en el q quedo el checked
 
             //filtro avanzado
