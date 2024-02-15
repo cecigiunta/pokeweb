@@ -6,7 +6,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using dominio;
 using negocios;
-using negocios;
 
 namespace pokeweb
 {

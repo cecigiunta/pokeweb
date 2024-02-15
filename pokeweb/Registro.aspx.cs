@@ -26,7 +26,12 @@ namespace pokeweb
 
                 user.Email = txtEmailRegistro.Text;
                 user.Pass = txtPasswordRegistro.Text;
-                int id = negocio.insertarNuevo(user);
+
+
+                //NUEVO - LOGIN DESPUES DEL REGISTRO
+                user.Id = negocio.insertarNuevo(user);
+                Session.Add("entrenador", user);
+
 
                 //MANDARLE MAIL AL USER DE BIENVENIDA 
                 emailService.armarCorreo(user.Email, "BIENVENIDA!", "Hola!!, bienvenida!!");

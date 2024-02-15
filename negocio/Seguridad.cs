@@ -31,3 +31,9 @@ namespace negocios
         }
     }
 }
+
+
+//PENDIENTE: 
+// HACER QUE EXEPTUE TB PAGINA HOME Y REGISTRO
+// SI ESTA LOGUEADO QUE NO SE PUEDA VOLVER A LOGUEAR O REGISTRAR Y QUE APAREZCA UN BOTON "SALIR" QUE DESLOGUEE
+//dependiendo si hay una session activa

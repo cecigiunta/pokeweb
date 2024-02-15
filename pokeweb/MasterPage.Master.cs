@@ -20,7 +20,7 @@ namespace pokeweb
 
             //     if ( (!(Page is Login)) || (!(Page is Default)) || (!(Page is Registro)))
 
-            if (!(Page is Login))
+            if (!(Page is Login || Page is Default || Page is Registro ))
             {
                 if (!(Seguridad.sessionActiva(Session["entrenador"])))
                 {
@@ -29,6 +29,12 @@ namespace pokeweb
             }
 
 
+        }
+
+        protected void btnSalir_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Response.Redirect("Login.aspx");
         }
     }
 }
