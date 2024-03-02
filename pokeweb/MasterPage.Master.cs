@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using negocios;
+using dominio;
 
 namespace pokeweb
 {
@@ -26,6 +27,18 @@ namespace pokeweb
                 {
                     Response.Redirect("Login.aspx", false);
                 }
+            }
+
+            // NUEVO : IMG PERFIL
+            if (!(Seguridad.sessionActiva(Session["entrenador"]))) // le preguntamos si hay una sesion activa
+            {
+                //Si hay, que cargue en el load en todas las paginas la imagen del user, 
+                imgAvatar.ImageUrl = "~/Images/" + ((Entrenador)Session["entrenador"]).ImagenPerfil;
+            }
+            else
+            {
+                // si NO hay, que quede la img vacia por defecto
+                imgAvatar.ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg";
             }
 
 

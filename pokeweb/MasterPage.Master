@@ -48,19 +48,29 @@
                             <a class="nav-link" href="./EjemplosEmail/EnvioEmail.aspx">EJEMPLO Email</a>
                         </li>--%>
 
-                        <div class="d-flex">
+                        <div class="d-flex flex-end">
                             <%--si NO hay una sesion activa (si no hay user logueado)--%>
-                            <% if (!negocios.Seguridad.sessionActiva(Session["entrenador"])) {  %>
-                            <li class="nav-item">
-                                <a class="btn btn-success" href="Registro.aspx">Registro</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn btn-primary" href="Login.aspx">Login</a>
-                            </li>
-                            <% } else { %>
+                            <% if (!negocios.Seguridad.sessionActiva(Session["entrenador"]))
+                                {  %>
 
-                                  <asp:Button ID = "btnSalir" CssClass="btn btn-danger" OnClick = "btnSalir_Click" runat = "server" Text = "Salir" />
-                                <%  } %>
+                            <a class="btn btn-success" href="Registro.aspx">Registro</a>
+
+
+                            <a class="btn btn-primary" href="Login.aspx">Login</a>
+
+                            <% }
+                            else
+                            { %>
+
+                            <asp:Button ID="btnSalir" CssClass="btn btn-danger" OnClick="btnSalir_Click" runat="server" Text="Salir" />
+                            <%  } %>
+
+                            <asp:Image ID="imgAvatar" Style="height: 40px; width: 40px; border-radius: 50%;"
+                                
+                                runat="server" />
+
+
+
                         </div>
 
                     </ul>

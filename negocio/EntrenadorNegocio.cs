@@ -9,12 +9,37 @@ namespace negocios
 {
     public class EntrenadorNegocio
     {
-        //id es automatico
-        //datos que tenemos : id, email password y admin
-        // no tenemos: nombre apellido img fecha
+
+        //ACTUALIZAR PARA IMG PERFIL
+        //TAREA QUE ACTUALICE TAMBIEN NOMBRE y APELLIDO y dejar le email disabled y que levante el email y la imagen que traigal os datos
+        public void actualizar(Entrenador entrenador)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("update USERS set imagenPerfil = @imagen Where Id = @id");
+                datos.setearParametro("@imagen", entrenador.ImagenPerfil);
+                datos.setearParametro("@id", entrenador.Id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
 
         public int insertarNuevo(Entrenador nuevo)
         {
+
+            //id es automatico
+            //datos que tenemos : id, email password y admin
+            // no tenemos: nombre apellido img fecha
+
             AccesoDatos datos = new AccesoDatos();
             try
             {
@@ -43,7 +68,8 @@ namespace negocios
 
             try
             {
-                datos.setearConsulta("Select id, email, pass, admin FROM USERS where email = @email And pass = @pass");
+                //NUEVO : HACER QUE TAMBIEN LEA LA IMAGEN CUANDO SE LOGUEA EN LA CONSULTA
+                datos.setearConsulta("Select id, email, pass, admin, imagenPerfil FROM USERS where email = @email And pass = @pass");
                 datos.setearParametro("@email", entrenador.Email);
                 datos.setearParametro("@pass", entrenador.Pass);
 
@@ -54,6 +80,12 @@ namespace negocios
                     //si me trajo el id hay user
                     entrenador.Id = (int)datos.Lector["id"];
                     entrenador.Admin = (bool)datos.Lector["admin"];
+
+                    //NUEVO:
+                    if (!(datos.Lector["imagenPerfil"] is DBNull)) //lo cargo solo si no es nulo
+                    {
+                        entrenador.ImagenPerfil = (string)datos.Lector["imagenPerfil"];
+                    }
 
                     return true;
 
