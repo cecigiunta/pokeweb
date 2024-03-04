@@ -59,15 +59,16 @@
                             <a class="btn btn-primary" href="Login.aspx">Login</a>
 
                             <% }
-                            else
-                            { %>
+                                else
+                                { %>
 
                             <asp:Button ID="btnSalir" CssClass="btn btn-danger" OnClick="btnSalir_Click" runat="server" Text="Salir" />
                             <%  } %>
 
-                            <asp:Image ID="imgAvatar" Style="height: 40px; width: 40px; border-radius: 50%;"
-                                
-                                runat="server" />
+                            <%--NUEVO - ARREGLOS: agrego este label para que aparezca el mail arriba cuando se loguea--%> 
+                            <asp:Label ID="lblUser" runat="server" Text=""></asp:Label>
+
+                            <asp:Image ID="imgAvatar" Style="height: 40px; width: 40px; border-radius: 50%;" runat="server" />
 
 
 

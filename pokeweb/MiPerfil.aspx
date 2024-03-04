@@ -21,7 +21,8 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Fecha de Nacimiento</label>
-                <asp:TextBox ID="txtFecNacPerfil" runat="server" CssClass="form-control"></asp:TextBox>
+                <%--NUEVO, AGREGAMOS TEXTMODE: DATE--%>
+                <asp:TextBox ID="txtFecNacPerfil" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
             </div>
         </div>
         <div class="col-md-4">

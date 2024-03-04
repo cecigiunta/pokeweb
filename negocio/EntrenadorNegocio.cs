@@ -4,21 +4,25 @@ using System.Linq;
 using System.Text;
 using dominio;
 using System.Threading.Tasks;
+using Microsoft.Win32;
 
 namespace negocios
 {
     public class EntrenadorNegocio
     {
 
-        //ACTUALIZAR PARA IMG PERFIL
-        //TAREA QUE ACTUALICE TAMBIEN NOMBRE y APELLIDO y dejar le email disabled y que levante el email y la imagen que traigal os datos
+        //ACTUALIZAR PARA IMG PERFI
         public void actualizar(Entrenador entrenador)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("update USERS set imagenPerfil = @imagen Where Id = @id");
-                datos.setearParametro("@imagen", entrenador.ImagenPerfil);
+                //CAMBIO CONSULTA Y PARAMETROS ASI TB ACTUALIZA NOMBRE APELLIDO y fechanacimiento
+                datos.setearConsulta("update USERS set imagenPerfil = @imagen, Nombre = @nombre, Apellido = @apellido, FechaNacimiento = @fecha Where Id = @id");
+                datos.setearParametro("@imagen", entrenador.ImagenPerfil != null ? entrenador.ImagenPerfil : ""); //validacion q no sea nula
+                datos.setearParametro("@nombre", entrenador.Nombre);
+                datos.setearParametro("@apellido", entrenador.Apellido);
+                datos.setearParametro("@fecha", entrenador.FechaNacimiento);
                 datos.setearParametro("@id", entrenador.Id);
                 datos.ejecutarAccion();
             }
@@ -62,39 +66,44 @@ namespace negocios
 
         public bool Login(Entrenador entrenador)
         {
-            //vamos a tener q hacer una conexion a BD para ver si las credenciales q vienen en ese objeto
-            // existen realmente
+            //conexion a BD para ver si las credenciales q vienen en ese objeto existen realmente
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                //NUEVO : HACER QUE TAMBIEN LEA LA IMAGEN CUANDO SE LOGUEA EN LA CONSULTA
-                datos.setearConsulta("Select id, email, pass, admin, imagenPerfil FROM USERS where email = @email And pass = @pass");
+                //HACER QUE TAMBIEN LEA LA IMAGEN CUANDO SE LOGUEA EN LA CONSULTA
+                datos.setearConsulta("Select id, email, pass, admin, imagenPerfil, nombre, apellido, fechaNacimiento FROM USERS where email = @email And pass = @pass");
                 datos.setearParametro("@email", entrenador.Email);
                 datos.setearParametro("@pass", entrenador.Pass);
 
                 datos.ejecutarLectura();
                 if (datos.Lector.Read())
                 {
-                    //necesito que lea 1 vez o da false
-                    //si me trajo el id hay user
                     entrenador.Id = (int)datos.Lector["id"];
                     entrenador.Admin = (bool)datos.Lector["admin"];
 
-                    //NUEVO:
                     if (!(datos.Lector["imagenPerfil"] is DBNull)) //lo cargo solo si no es nulo
                     {
                         entrenador.ImagenPerfil = (string)datos.Lector["imagenPerfil"];
                     }
-
+                    if (!(datos.Lector["nombre"] is DBNull)) 
+                    {
+                        entrenador.Nombre = (string)datos.Lector["nombre"];
+                    }
+                    if (!(datos.Lector["apellido"] is DBNull)) 
+                    {
+                        entrenador.Apellido = (string)datos.Lector["apellido"];
+                    }
+                    if (!(datos.Lector["fechaNacimiento"] is DBNull)) 
+                    {
+                        entrenador.FechaNacimiento = DateTime.Parse(datos.Lector["fechaNacimiento"].ToString());
+                    }
                     return true;
-
                 }
                 return false; //no hay usuario logueado
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally
