@@ -17,9 +17,17 @@ namespace negocios
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                //CAMBIO CONSULTA Y PARAMETROS ASI TB ACTUALIZA NOMBRE APELLIDO y fechanacimiento
                 datos.setearConsulta("update USERS set imagenPerfil = @imagen, Nombre = @nombre, Apellido = @apellido, FechaNacimiento = @fecha Where Id = @id");
-                datos.setearParametro("@imagen", entrenador.ImagenPerfil != null ? entrenador.ImagenPerfil : ""); //validacion q no sea nula
+                
+                //NUEVO: ENVIAR NULL A BD
+                //opcion 1: le hago una conversion explicita a object porque el metodo setear parametro acepta object
+                //datos.setearParametro("@imagen", entrenador.ImagenPerfil != null ? entrenador.ImagenPerfil : (object)DBNull.Value);
+
+                //opcion 2: OPERADOR NULL COALESCING: operador condicional para trabajar null. Devuelve lo primero, y si es nulo ya lo segundo
+                datos.setearParametro("@imagen", (object)entrenador.ImagenPerfil ?? DBNull.Value);
+
+                //int? variable entera que ADMITE nulo
+
                 datos.setearParametro("@nombre", entrenador.Nombre);
                 datos.setearParametro("@apellido", entrenador.Apellido);
                 datos.setearParametro("@fecha", entrenador.FechaNacimiento);

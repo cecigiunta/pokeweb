@@ -34,7 +34,6 @@ namespace pokeweb
                     if (! string.IsNullOrEmpty(entrenador.ImagenPerfil))  //si NO es nulo, que tambien me muestre la img
                     {
                         imgAvatar.ImageUrl = "~/Images/" + ((Entrenador)Session["entrenador"]).ImagenPerfil;
-
                     }
 
                 }
