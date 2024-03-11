@@ -43,9 +43,21 @@ namespace pokeweb
             catch (Exception ex)
             {
 
-                Session.Add("error", ex);
+                Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
+        }
+
+
+        //Error GENERICO a nivel Pantalla:
+        private void Page_Error(object sender, EventArgs e)
+        {
+            Exception exc = Server.GetLastError();
+
+            Session.Add("error", exc.ToString());
+
+            // Tenemos que hacer la navegacion por Server.Transfer, no por Response.Redirect
+            Server.Transfer("Error.aspx", true);
         }
     }
 }

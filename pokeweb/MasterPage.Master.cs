@@ -21,7 +21,7 @@ namespace pokeweb
             //En el load de la MASTER PAGE vamos a hacer la validacion de seguridad para ver si el user esta logueado
             //tengo que exceptuar las páginas que NO quiero que me valide. Va a tener el obj al que se esta dirigiendo la MasterPage 
             //le pregunto CUAL es la page que está dibujando
-            if (!(Page is Login || Page is Default || Page is Registro))
+            if (!(Page is Login || Page is Default || Page is Registro || Page is Error))
             {
                 if (!(Seguridad.sessionActiva(Session["entrenador"])))
                 {
