@@ -26,21 +26,13 @@ namespace pokeweb
 
         }
 
-
-        // PARA PROBAR ERRORES POR EJ EN EL METODO LOGIN EN EL TRY PONEMOS
-        /*  throw new Exception("error PRUEBA");
-         *  
-         *  */
-
         // OTRA ALTERNATIVA ES A NIVEL PANTALLA, EN CADA PAGINA: PAGE_ERROR
         // https://learn.microsoft.com/en-us/aspnet/web-forms/overview/getting-started/getting-started-with-aspnet-45-web-forms/aspnet-error-handling
 
         /*  El PAGE ERROR es como un nivel 2 de errores si NO la manejamos o se escapa de try catch
             el APPLICATION ERROR es como un nivel 3 si falla o no tiene un PAGE ERROR
         Si se hacen manejos de errores independientes, se pueden tomar MAS desiciones por cada error (try catch)
-
         Recomendacion siempre por evento y por las dudas en global asax
-         
         */
 
 

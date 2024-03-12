@@ -49,7 +49,7 @@ namespace pokeweb
         }
 
 
-        //Error GENERICO a nivel Pantalla:
+        //Manejo de Error GENERICO a nivel Pantalla:
         private void Page_Error(object sender, EventArgs e)
         {
             Exception exc = Server.GetLastError();
