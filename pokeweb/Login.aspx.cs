@@ -23,6 +23,14 @@ namespace pokeweb
 
             try
             {
+                //VALIDACIONES CLASICAS: 
+
+                if(Validacion.validaTextoVacio(txtEmailLogin) || Validacion.validaTextoVacio(txtPasswordLogin))
+                {
+                    Session.Add("error", "Email o Password vacíos");
+                    Response.Redirect("Error.aspx");
+                }
+
                 entrenador.Email = txtEmailLogin.Text;
                 entrenador.Pass = txtPasswordLogin.Text;
 
@@ -40,9 +48,11 @@ namespace pokeweb
                 }
 
             }
+            //para evitar que el Abort exception corte la ejecucion, capturo la excepcion y que no haga nada
+            catch(System.Threading.ThreadAbortException ex) { }
+
             catch (Exception ex)
             {
-
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
