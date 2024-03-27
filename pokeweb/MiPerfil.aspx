@@ -24,13 +24,20 @@
                 <asp:TextBox ID="txtNombrePerfil" runat="server" CssClass="form-control"></asp:TextBox>
                 <asp:RequiredFieldValidator CssClass="validator" ErrorMessage="El Nombre es requerido" ControlToValidate="txtNombrePerfil" runat="server" />
             </div>
-
-
-
             <div class="mb-3">
                 <label class="form-label">Apellido</label>
                 <asp:TextBox ID="txtApellidoPerfil" runat="server" CssClass="form-control"></asp:TextBox>
+              <%--  <asp:RangeValidator ErrorMessage="Fuera de Rango" ControlToValidate="txtApellidoPerfil" 
+                    Type="Integer" MinimumValue="1" MaximumValue="20"                    
+                    runat="server" />--%>
+
+<%--                <asp:RegularExpressionValidator ErrorMessage="Solo Numeros!" ControlToValidate="txtApellidoPerfil" 
+                    ValidationExpression="^[0-9]+$" runat="server" />--%>
+
             </div>
+
+
+
             <div class="mb-3">
                 <label class="form-label">Fecha de Nacimiento</label>
                 <asp:TextBox ID="txtFecNacPerfil" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
