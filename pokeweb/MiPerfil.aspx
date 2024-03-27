@@ -1,6 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="MiPerfil.aspx.cs" Inherits="pokeweb.MiPerfil" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .validator {
+        color: red;
+        font-size: 20px;
+        }
+    </style>
+
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -14,14 +22,17 @@
             <div class="mb-3">
                 <label class="form-label">Nombre</label>
                 <asp:TextBox ID="txtNombrePerfil" runat="server" CssClass="form-control"></asp:TextBox>
+                <asp:RequiredFieldValidator CssClass="validator" ErrorMessage="El Nombre es requerido" ControlToValidate="txtNombrePerfil" runat="server" />
             </div>
+
+
+
             <div class="mb-3">
                 <label class="form-label">Apellido</label>
                 <asp:TextBox ID="txtApellidoPerfil" runat="server" CssClass="form-control"></asp:TextBox>
             </div>
             <div class="mb-3">
                 <label class="form-label">Fecha de Nacimiento</label>
-                <%--NUEVO, AGREGAMOS TEXTMODE: DATE--%>
                 <asp:TextBox ID="txtFecNacPerfil" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
             </div>
         </div>

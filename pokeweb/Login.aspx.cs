@@ -24,12 +24,13 @@ namespace pokeweb
             try
             {
                 //VALIDACIONES CLASICAS: 
-
+                /*
                 if(Validacion.validaTextoVacio(txtEmailLogin) || Validacion.validaTextoVacio(txtPasswordLogin))
                 {
                     Session.Add("error", "Email o Password vacíos");
                     Response.Redirect("Error.aspx");
                 }
+                */
 
                 entrenador.Email = txtEmailLogin.Text;
                 entrenador.Pass = txtPasswordLogin.Text;

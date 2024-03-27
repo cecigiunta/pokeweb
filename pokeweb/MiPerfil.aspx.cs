@@ -43,6 +43,16 @@ namespace pokeweb
         {
             try
             {
+                //NUEVO : VALIDATORS ASP REQUIRED
+                Page.Validate();  //va a ejecutar las validaciones configuradas
+                if (!Page.IsValid)
+                {
+                    return;   // le pregunto si la pagina NO es valida, que finaliza la ejecucion del evento
+                }
+
+
+
+
                 EntrenadorNegocio negocio = new EntrenadorNegocio();
                 Entrenador entrenador = (Entrenador)Session["entrenador"];  
 
