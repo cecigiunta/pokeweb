@@ -8,8 +8,22 @@
         }
     </style>
 
+    <script>
+        function validar() {
+            const txtApellidoPerfil = document.getElementById("txtApellidoPerfil");
+            if (txtApellidoPerfil.value == "") {
+                txtApellidoPerfil.classList.add("is-invalid")  //Clases de bootstrap de validacion
+                return false
+            }
+            txtApellidoPerfil.classList.remove("is-invalid")
+            return true
+        }
+    </script>
+
 
 </asp:Content>
+
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <h2>Mi perfil!!</h2>
@@ -26,18 +40,17 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Apellido</label>
-                <asp:TextBox ID="txtApellidoPerfil" runat="server" CssClass="form-control"></asp:TextBox>
+                <asp:TextBox ID="txtApellidoPerfil" ClientIDMode="Static" runat="server" CssClass="form-control"></asp:TextBox>
+                <%-- ClientIDMODE: static: para que el ID permanezca igual en el html en el navegador--%>
+
               <%--  <asp:RangeValidator ErrorMessage="Fuera de Rango" ControlToValidate="txtApellidoPerfil" 
                     Type="Integer" MinimumValue="1" MaximumValue="20"                    
                     runat="server" />--%>
-
-<%--                <asp:RegularExpressionValidator ErrorMessage="Solo Numeros!" ControlToValidate="txtApellidoPerfil" 
+ 
+              <%--  <asp:RegularExpressionValidator ErrorMessage="Solo Numeros!" ControlToValidate="txtApellidoPerfil" 
                     ValidationExpression="^[0-9]+$" runat="server" />--%>
 
             </div>
-
-
-
             <div class="mb-3">
                 <label class="form-label">Fecha de Nacimiento</label>
                 <asp:TextBox ID="txtFecNacPerfil" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
@@ -52,6 +65,8 @@
 
         </div>
     </div>
-    <asp:Button ID="btnGuardarPerfil" runat="server" Text="Guardar" OnClick="btnGuardarPerfil_Click" CssClass="btn btn-primary" />
+    <asp:Button ID="btnGuardarPerfil" runat="server" Text="Guardar"
+        OnClientClick="return validar()"
+        OnClick="btnGuardarPerfil_Click" CssClass="btn btn-primary" />
     <a href="/">Cancelar</a>
 </asp:Content>
